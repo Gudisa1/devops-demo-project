@@ -16,16 +16,16 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+    stage('Build and Test') {
             steps {
-                sh 'ls -ltr'
+                container('maven') {  // Use Maven container for all Maven commands
+                    // Check if Maven is available
+                    sh 'mvn version'
 
-            
-
-                // Build the project and create a JAR file
-                sh 'cd demo-java-app && mvn clean package'
+                    // Build the project and create a JAR file
+                    sh 'cd demo-java-app && mvn clean package'
+                }
             }
-        }
 
         stage('Static Code Analysis') {
             environment {
