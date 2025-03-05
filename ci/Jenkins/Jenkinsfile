@@ -18,13 +18,17 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                script {
-                    // Reference the Maven tool configured in Jenkins Global Tool Configuration
-                    def mavenHome = tool name: 'Maven 3.9.9', type: 'Maven'
-                    
-                    // Run Maven commands using the referenced Maven home
-                    sh "${mavenHome}/bin/mvn clean package"
-                }
+                // List files in the workspace for debugging
+                sh 'ls -ltr'
+
+                // Specify the Maven version to use (ensure this version is configured in Jenkins)
+                tool name: 'Maven 3.8.7', type: 'Maven'
+
+                // Build the project and create a JAR file using the specific Maven version
+                sh 'cd demo-java-app && mvn clean package'
+
+                // Optionally, you can add tests to verify the build, e.g., if you have unit tests configured
+                // sh 'cd demo-java-app && mvn test'
             }
         }
 
