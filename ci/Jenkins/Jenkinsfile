@@ -20,16 +20,7 @@ pipeline {
             steps {
                 sh 'ls -ltr'
 
-                // Check if Maven is installed
-                sh '''
-                if ! command -v mvn &> /dev/null
-                then
-                    echo "Maven is not installed. Installing now..."
-                    sudo apt-get update && sudo apt-get install -y maven
-                else
-                    echo "Maven is already installed."
-                fi
-                '''
+            
 
                 // Build the project and create a JAR file
                 sh 'cd demo-java-app && mvn clean package'
