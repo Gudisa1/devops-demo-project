@@ -4,6 +4,9 @@ pipeline {
     environment {
         PATH = "/usr/share/maven/bin:${env.PATH}"
     }
+    tools {
+        maven 'Maven 3.8.7'  // Use the Maven tool you just added
+    }
 
     parameters {
         string(name: 'build_version', defaultValue: 'V1.0', description: 'Build version to use for Docker image')
