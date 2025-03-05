@@ -16,7 +16,7 @@ pipeline {
             }
         }
 
-    stage('Build and Test') {
+        stage('Build and Test') {
             steps {
                 container('maven') {  // Use Maven container for all Maven commands
                     // Check if Maven is available
@@ -26,6 +26,7 @@ pipeline {
                     sh 'cd demo-java-app && mvn clean package'
                 }
             }
+        }
 
         stage('Static Code Analysis') {
             environment {
