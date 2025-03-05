@@ -19,5 +19,11 @@ RUN apt-get update && \
     sudo sh install-docker.sh && \
     sudo usermod -a -G docker jenkins
 
+# Make sure Jenkins can use Docker without sudo (assuming Docker installation is correct)
+RUN usermod -aG docker jenkins
+
 # Expose Jenkins port
 EXPOSE 8080
+
+# Set the default user back to jenkins
+USER jenkins
