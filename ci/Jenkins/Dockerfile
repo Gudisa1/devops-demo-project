@@ -7,7 +7,7 @@ USER root
 RUN apt-get update && apt-get install -y maven
 
 # Ensure Maven is added to PATH (in case it's not added automatically)
-RUN echo "export PATH=/usr/share/maven/bin:$PATH" >> /etc/profile.d/maven.sh
+ENV PATH="/usr/share/maven/bin:${PATH}"
 
 # Install Docker
 RUN apt-get update && \
@@ -19,11 +19,5 @@ RUN apt-get update && \
     sudo sh install-docker.sh && \
     sudo usermod -a -G docker jenkins
 
-# Make sure Jenkins can use Docker without sudo (assuming Docker installation is correct)
-RUN usermod -aG docker jenkins
-
 # Expose Jenkins port
 EXPOSE 8080
-
-# Set the default user back to jenkins
-USER jenkins
