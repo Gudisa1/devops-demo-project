@@ -2,8 +2,9 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/usr/share/maven/bin:${env.PATH}"
-    }
+    PATH = "/usr/bin:${env.PATH}"
+}
+
     tools {
         maven 'Maven 3.8.7'  // Use the Maven tool you just added
     }
