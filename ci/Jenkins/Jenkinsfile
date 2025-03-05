@@ -13,11 +13,21 @@ pipeline {
       }
     }
     stage('Build and Test') {
-      steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
-        sh 'cd demo-java-app && mvn clean package'
-      }
+      sh 'ls -ltr'
+    
+    // Check if Maven is installed
+    sh '''
+    if ! command -v mvn &> /dev/null
+    then
+        echo "Maven is not installed. Installing now..."
+        apt-get update && apt-get install -y maven
+    else
+        echo "Maven is already installed."
+    fi
+    '''
+
+    // Build the project and create a JAR file
+    sh 'cd demo-java-app && mvn clean package'
     }
     stage('Static Code Analysis') {
       environment {
